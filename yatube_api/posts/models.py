@@ -39,9 +39,15 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
+    def __str__(self):
+        return f'Комментарий от {self.author.username} к посту {self.post}'
+
 
 class Follow(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE)
     following = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='following_users')
+
+    def __str__(self):
+        return f'{self.user.username} подписан на {self.following.username}'
